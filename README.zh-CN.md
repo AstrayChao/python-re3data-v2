@@ -4,10 +4,12 @@
 
 **re3data API 的 Python 客户端 — v40 · schema 4.0 · Python 3.14+**
 
-[![原仓库已归档](https://img.shields.io/badge/%E5%8E%9F%E4%BB%93%E5%BA%93-%E5%B7%B2%E5%BD%92%E6%A1%A3-lightgrey?logo=github)](https://github.com/afuetterer/python-re3data)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/python-re3data-v2?logo=pypi&logoColor=white)](https://pypi.org/project/python-re3data-v2/)
 [![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-3776ab?logo=python&logoColor=white)](pyproject.toml)
+[![Tests](https://github.com/AstrayChao/python-re3data-v2/actions/workflows/test.yml/badge.svg)](https://github.com/AstrayChao/python-re3data-v2/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![代码风格: ruff](https://img.shields.io/badge/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC-ruff-261230?logo=ruff&logoColor=white)](https://docs.astral.sh/ruff/)
+[![原仓库已归档](https://img.shields.io/badge/%E5%8E%9F%E4%BB%93%E5%BA%93-%E5%B7%B2%E5%BD%92%E6%A1%A3-lightgrey?logo=github)](https://github.com/afuetterer/python-re3data)
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 

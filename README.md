@@ -4,11 +4,12 @@
 
 **The Pythonic client for the [re3data](https://www.re3data.org) API — v40 · schema 4.0 · Python 3.14+**
 
-[![Original repo archived](https://img.shields.io/badge/original%20repo-archived-lightgrey?logo=github)](https://github.com/afuetterer/python-re3data)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PyPI version](https://img.shields.io/pypi/v/python-re3data-v2?logo=pypi&logoColor=white)](https://pypi.org/project/python-re3data-v2/)
 [![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-3776ab?logo=python&logoColor=white)](pyproject.toml)
+[![Tests](https://github.com/AstrayChao/python-re3data-v2/actions/workflows/test.yml/badge.svg)](https://github.com/AstrayChao/python-re3data-v2/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-261230?logo=ruff&logoColor=white)](https://docs.astral.sh/ruff/)
-[![Tests](https://img.shields.io/badge/tests-53%20passed-brightgreen)](tests)
+[![Original repo archived](https://img.shields.io/badge/original%20repo-archived-lightgrey?logo=github)](https://github.com/afuetterer/python-re3data)
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 
