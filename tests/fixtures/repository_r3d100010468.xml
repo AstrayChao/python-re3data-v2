@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- re3data.org Metadata Schema for the Description of Research Data Repositories. Version 4.0, August 2023. https://doi.org/10.48440/re3.014 -->
+<r3d:re3data xmlns:r3d="http://www.re3data.org/schema/4-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.re3data.org/schema/4-0 http://schema.re3data.org/4-0/re3dataV4-0.xsd">
+	<r3d:repository>
+		<r3d:identifiers>
+			<r3d:re3data>r3d100010468</r3d:re3data>
+			<r3d:doi>https://doi.org/10.17616/R3QP53</r3d:doi>
+		</r3d:identifiers>
+		<r3d:repositoryName language="eng">Zenodo</r3d:repositoryName>
+				<r3d:repositoryUrl>https://zenodo.org/</r3d:repositoryUrl>
+				<r3d:repositoryIdentifier>
+			<r3d:repositoryIdentifierType>FAIRsharing</r3d:repositoryIdentifierType>
+			<r3d:repositoryIdentifierValue>10.25504/FAIRsharing.wy4egf</r3d:repositoryIdentifierValue>
+		</r3d:repositoryIdentifier>
+				<r3d:repositoryIdentifier>
+			<r3d:repositoryIdentifierType>RRID</r3d:repositoryIdentifierType>
+			<r3d:repositoryIdentifierValue>SCR_004129</r3d:repositoryIdentifierValue>
+		</r3d:repositoryIdentifier>
+				<r3d:repositoryIdentifier>
+			<r3d:repositoryIdentifierType>RRID</r3d:repositoryIdentifierType>
+			<r3d:repositoryIdentifierValue>nlx_158614</r3d:repositoryIdentifierValue>
+		</r3d:repositoryIdentifier>
+				<r3d:description language="eng">ZENODO builds and operates a simple and innovative service that enables researchers, scientists, EU projects and institutions to share and showcase multidisciplinary research results (data and publications) that are not part of the existing institutional or subject-based repositories of the research communities.
+ZENODO enables researchers, scientists, EU projects and institutions to:
+easily share the long tail of small research results in a wide variety of formats including text, spreadsheets, audio, video, and images across all fields of science.
+display their research results and get credited by making the research results citable and integrate them into existing reporting lines to funding agencies like the European Commission.
+easily access and reuse shared research results.</r3d:description>
+				<r3d:repositoryContact>
+			<r3d:repositoryContactInformation>https://about.zenodo.org/contact/</r3d:repositoryContactInformation>
+			<r3d:repositoryContactType>administrative</r3d:repositoryContactType>
+		</r3d:repositoryContact>
+				<r3d:repositoryContact>
+			<r3d:repositoryContactInformation>https://zenodo.org/support</r3d:repositoryContactInformation>
+			<r3d:repositoryContactType>support</r3d:repositoryContactType>
+		</r3d:repositoryContact>
+						<r3d:type>other</r3d:type>
+						<r3d:size>601.940 datasets; 6.461.333 total entries</r3d:size>
+						<r3d:startDate>2013-05-08</r3d:startDate>
+        									<r3d:repositoryLanguage>eng</r3d:repositoryLanguage>
+							<r3d:subject subjectScheme="DFG">
+				<r3d:subjectId>4</r3d:subjectId>
+				<r3d:subjectName>Engineering Sciences</r3d:subjectName>
+			</r3d:subject>
+					<r3d:subject subjectScheme="DFG">
+				<r3d:subjectId>1</r3d:subjectId>
+				<r3d:subjectName>Humanities and Social Sciences</r3d:subjectName>
+			</r3d:subject>
+					<r3d:subject subjectScheme="DFG">
+				<r3d:subjectId>2</r3d:subjectId>
+				<r3d:subjectName>Life Sciences</r3d:subjectName>
+			</r3d:subject>
+					<r3d:subject subjectScheme="DFG">
+				<r3d:subjectId>3</r3d:subjectId>
+				<r3d:subjectName>Natural Sciences</r3d:subjectName>
+			</r3d:subject>
+							<r3d:missionStatementUrl>https://about.zenodo.org/</r3d:missionStatementUrl>
+							<r3d:contentType contentTypeScheme="COAR">
+				<r3d:contentTypeId>http://purl.org/coar/resource_type/c_ddb1</r3d:contentTypeId>
+				<r3d:contentTypeName>dataset</r3d:contentTypeName>
+			</r3d:contentType>
+					<r3d:contentType contentTypeScheme="COAR">
+				<r3d:contentTypeId>http://purl.org/coar/resource_type/c_c513</r3d:contentTypeId>
+				<r3d:contentTypeName>image</r3d:contentTypeName>
+			</r3d:contentType>
+					<r3d:contentType contentTypeScheme="COAR">
+				<r3d:contentTypeId>http://purl.org/coar/resource_type/c_1843</r3d:contentTypeId>
+				<r3d:contentTypeName>other</r3d:contentTypeName>
+			</r3d:contentType>
+					<r3d:contentType contentTypeScheme="COAR">
+				<r3d:contentTypeId>http://purl.org/coar/resource_type/c_5ce6</r3d:contentTypeId>
+				<r3d:contentTypeName>software</r3d:contentTypeName>
+			</r3d:contentType>
+					<r3d:contentType contentTypeScheme="COAR">
+				<r3d:contentTypeId>http://purl.org/coar/resource_type/c_18cf</r3d:contentTypeId>
+				<r3d:contentTypeName>text</r3d:contentTypeName>
+			</r3d:contentType>
+							<r3d:providerType>dataProvider</r3d:providerType>
+							<r3d:keyword>FAIR</r3d:keyword>
+					<r3d:keyword>multidisciplinary</r3d:keyword>
+							<r3d:institution>
+				<r3d:institutionName language="eng">European Organization for Nuclear Research</r3d:institutionName>
+									<r3d:institutionAdditionalName language="fra">CERN</r3d:institutionAdditionalName>
+									<r3d:institutionAdditionalName language="fra">Centre Européen pour la Recherche Nucléaire</r3d:institutionAdditionalName>
+								<r3d:institutionCountry>EEC</r3d:institutionCountry>
+									<r3d:responsibilityType>funding</r3d:responsibilityType>
+									<r3d:responsibilityType>general</r3d:responsibilityType>
+									<r3d:responsibilityType>technical</r3d:responsibilityType>
+								<r3d:institutionType>non-profit</r3d:institutionType>
+				<r3d:institutionUrl>https://home.cern/</r3d:institutionUrl>
+									<r3d:institutionIdentifier>
+						<r3d:institutionIdentifierType>ROR</r3d:institutionIdentifierType>
+											<r3d:institutionIdentifierUrl>https://ror.org/01ggx4157</r3d:institutionIdentifierUrl>
+										</r3d:institutionIdentifier>
+															</r3d:institution>
+					<r3d:institution>
+				<r3d:institutionName language="eng">OpenAIRE</r3d:institutionName>
+									<r3d:institutionAdditionalName language="eng">Open Access Infrastructure for Research in Europa</r3d:institutionAdditionalName>
+								<r3d:institutionCountry>EEC</r3d:institutionCountry>
+									<r3d:responsibilityType>funding</r3d:responsibilityType>
+									<r3d:responsibilityType>general</r3d:responsibilityType>
+								<r3d:institutionType>non-profit</r3d:institutionType>
+				<r3d:institutionUrl>https://www.openaire.eu/</r3d:institutionUrl>
+									<r3d:institutionIdentifier>
+						<r3d:institutionIdentifierType>ROR</r3d:institutionIdentifierType>
+											<r3d:institutionIdentifierUrl>https://ror.org/019kf3481</r3d:institutionIdentifierUrl>
+										</r3d:institutionIdentifier>
+									<r3d:institutionIdentifier>
+						<r3d:institutionIdentifierType>RRID</r3d:institutionIdentifierType>
+											<r3d:institutionIdentifierUrl>https://scicrunch.org/resolver/RRID:SCR_013740</r3d:institutionIdentifierUrl>
+										</r3d:institutionIdentifier>
+															</r3d:institution>
+							<r3d:policy>
+				<r3d:policyName>Policies</r3d:policyName>
+				<r3d:policyUrl>https://about.zenodo.org/policies/</r3d:policyUrl>
+			</r3d:policy>
+					<r3d:policy>
+				<r3d:policyName>Terms of use</r3d:policyName>
+				<r3d:policyUrl>https://about.zenodo.org/terms/</r3d:policyUrl>
+			</r3d:policy>
+							<r3d:fundingInformation>
+				<r3d:funderName>Horizon 2020 Framework Programme</r3d:funderName>
+									<r3d:funderIdentifier>
+						<r3d:funderIdentifierType>CrossrefFunderID</r3d:funderIdentifierType>
+						<r3d:funderIdentifierValue>100010661</r3d:funderIdentifierValue>
+					</r3d:funderIdentifier>
+											</r3d:fundingInformation>
+					<r3d:fundingInformation>
+				<r3d:funderName>Seventh Framework Programme</r3d:funderName>
+									<r3d:funderIdentifier>
+						<r3d:funderIdentifierType>CrossrefFunderID</r3d:funderIdentifierType>
+						<r3d:funderIdentifierValue>501100004963</r3d:funderIdentifierValue>
+					</r3d:funderIdentifier>
+											</r3d:fundingInformation>
+				<r3d:databaseAccess>
+			<r3d:databaseAccessType>open</r3d:databaseAccessType>
+					</r3d:databaseAccess>
+					<r3d:databaseLicense>
+				<r3d:databaseLicenseName>CC0</r3d:databaseLicenseName>
+				<r3d:databaseLicenseUrl>https://creativecommons.org/publicdomain/zero/1.0/</r3d:databaseLicenseUrl>
+			</r3d:databaseLicense>
+							<r3d:dataAccess>
+				<r3d:dataAccessType>closed</r3d:dataAccessType>
+							</r3d:dataAccess>
+					<r3d:dataAccess>
+				<r3d:dataAccessType>open</r3d:dataAccessType>
+							</r3d:dataAccess>
+					<r3d:dataAccess>
+				<r3d:dataAccessType>restricted</r3d:dataAccessType>
+									<r3d:dataAccessRestriction>registration</r3d:dataAccessRestriction>
+							</r3d:dataAccess>
+							<r3d:dataLicense>
+				<r3d:dataLicenseName>CC</r3d:dataLicenseName>
+				<r3d:dataLicenseUrl>https://creativecommons.org/</r3d:dataLicenseUrl>
+			</r3d:dataLicense>
+					<r3d:dataLicense>
+				<r3d:dataLicenseName>CC0</r3d:dataLicenseName>
+				<r3d:dataLicenseUrl>https://creativecommons.org/publicdomain/zero/1.0/</r3d:dataLicenseUrl>
+			</r3d:dataLicense>
+					<r3d:dataLicense>
+				<r3d:dataLicenseName>other</r3d:dataLicenseName>
+				<r3d:dataLicenseUrl>https://about.zenodo.org/policies/</r3d:dataLicenseUrl>
+			</r3d:dataLicense>
+							<r3d:dataUpload>
+				<r3d:dataUploadType>restricted</r3d:dataUploadType>
+									<r3d:dataUploadRestriction>registration</r3d:dataUploadRestriction>
+							</r3d:dataUpload>
+							<r3d:dataUploadLicense>
+				<r3d:dataUploadLicenseName>Policies</r3d:dataUploadLicenseName>
+				<r3d:dataUploadLicenseUrl>https://about.zenodo.org/policies/</r3d:dataUploadLicenseUrl>
+			</r3d:dataUploadLicense>
+							<r3d:software>InvenioRDM</r3d:software>
+							<r3d:versioning>yes</r3d:versioning>
+							<r3d:api>
+				<r3d:apiType>OAI-PMH</r3d:apiType>
+				<r3d:apiUrl>https://zenodo.org/oai2d?verb=Identify</r3d:apiUrl>
+									<r3d:apiDocumentation>https://developers.zenodo.org/#oai-pmh</r3d:apiDocumentation>
+							</r3d:api>
+					<r3d:api>
+				<r3d:apiType>REST</r3d:apiType>
+				<r3d:apiUrl>https://zenodo.org/api/records</r3d:apiUrl>
+									<r3d:apiDocumentation>https://developers.zenodo.org/#rest-api</r3d:apiDocumentation>
+							</r3d:api>
+							<r3d:pidSystem>DOI</r3d:pidSystem>
+									<r3d:metrics>Altmetric</r3d:metrics>
+							<r3d:citationGuidelineUrl>https://about.zenodo.org/</r3d:citationGuidelineUrl>
+							<r3d:aidSystem>ORCID</r3d:aidSystem>
+							<r3d:enhancedPublication>yes</r3d:enhancedPublication>
+													<r3d:metadataStandard>
+				<r3d:metadataStandardName>DataCite Metadata Schema</r3d:metadataStandardName>
+				<r3d:metadataStandardUrl>https://rdamsc.bath.ac.uk/msc/m11</r3d:metadataStandardUrl>
+			</r3d:metadataStandard>
+					<r3d:metadataStandard>
+				<r3d:metadataStandardName>Dublin Core</r3d:metadataStandardName>
+				<r3d:metadataStandardUrl>https://rdamsc.bath.ac.uk/msc/m15</r3d:metadataStandardUrl>
+			</r3d:metadataStandard>
+					<r3d:metadataStandard>
+				<r3d:metadataStandardName>MARC (Machine-Readable Cataloging)</r3d:metadataStandardName>
+				<r3d:metadataStandardUrl>https://rdamsc.bath.ac.uk/msc/m88</r3d:metadataStandardUrl>
+			</r3d:metadataStandard>
+						<r3d:remarks>Zenodo is covered by Thomson Reuters Data Citation Index. Zenodo uses Altmetric metrics and provides impact information in the form of software citations (15.01.2019). Zenodo uses invenio repository software. OpenAIRE Orphan Record Repository got a make-over and was re-branded as ZENODO. Zenodo uses Invenio repository software. ZENODO was launched within the OpenAIREplus project as part of a European-wide research infrastructure.   Easy upload and semi-automatic metadata completion by communication with existing online services such as DropBox for upload, Mendeley/ORCID/CrossRef/OpenAIRE for upload and pre-filling metadata.</r3d:remarks>
+		<r3d:entryDate>2013-06-13</r3d:entryDate>
+		<r3d:lastUpdate>2026-05-07</r3d:lastUpdate>
+	</r3d:repository>
+</r3d:re3data>

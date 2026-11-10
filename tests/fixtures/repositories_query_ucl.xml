@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+            <repository>
+            <id>r3d100013090</id>
+                        <doi>https://doi.org/10.17616/R31NJMLE</doi>
+                        <name>UCL Research Data Repository</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100013090" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100012417</id>
+                        <doi>https://doi.org/10.17616/R34F41</doi>
+                        <name>UCL Discovery</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100012417" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100011478</id>
+                        <doi>https://doi.org/10.17616/R3NS78</doi>
+                        <name>Pombase</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100011478" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100014274</id>
+                        <doi>https://doi.org/10.17616/R31NJNIA</doi>
+                        <name>CLOSER Discovery</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100014274" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100012629</id>
+                        <doi>https://doi.org/10.17616/R32Z1F</doi>
+                        <name>CATH</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100012629" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100011841</id>
+                        <doi>https://doi.org/10.17616/R3G920</doi>
+                        <name>MRC National Survey of Health and Development</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100011841" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100014009</id>
+                        <doi>https://doi.org/10.17616/R31NJNAX</doi>
+                        <name>Tools for Second Language Speech Research and Teaching</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100014009" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100011630</id>
+                        <doi>https://doi.org/10.17616/R3DP8F</doi>
+                        <name>Australian Drosophila Ecology and Evolution Resource</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100011630" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100010230</id>
+                        <doi>https://doi.org/10.17616/R3230F</doi>
+                        <name>UK Data Service</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100010230" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100010669</id>
+                        <doi>https://doi.org/10.17616/R3090W</doi>
+                        <name>IMEx data</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100010669" rel="self" />
+        </repository>
+            <repository>
+            <id>r3d100011854</id>
+                        <doi>https://doi.org/10.17616/R3FM01</doi>
+                        <name>Whitehall II Study</name>
+            <link href="https://www.re3data.org/api/v40/repository/r3d100011854" rel="self" />
+        </repository>
+    </list>
