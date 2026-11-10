@@ -53,7 +53,8 @@ optional-dependencies.all = [
 ]
 
 urls.Changelog = "https://github.com/AstrayChao/python-re3data-v2/blob/master/CHANGELOG.md"
-urls.Repository = "https://github.com/AstrayChao/python-re3data-v2.git"
+urls.Repository = "https://github.com/AstrayChao/python-re3data-v2"
+urls.Issues = "https://github.com/AstrayChao/python-re3data-v2/issues"
 scripts.re3data = "re3data.__main__:app"
 
 [dependency-groups]
