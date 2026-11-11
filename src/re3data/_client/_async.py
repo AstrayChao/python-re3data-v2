@@ -8,13 +8,16 @@ from typing import TYPE_CHECKING, Self
 import httpx
 
 from re3data._client.base import (
+    APIVersion,
     BaseClient,
     Endpoint,
     ResourceType,
     ReturnType,
     _dispatch_return_type,
+    base_url_for,
     build_query_params,
     is_valid_return_type,
+    resolve_api_version,
 )
 from re3data._exceptions import RepositoryNotFoundError
 from re3data._response import Response, _build_response
@@ -65,8 +68,14 @@ class AsyncRepositoryManager:
             httpx.HTTPStatusError: If the server returned an error status code >= 500.
         """
         is_valid_return_type(return_type)
+        if filters and self._client._list_api_version is not APIVersion.V40:
+            logger.warning(
+                "Facet filters are only supported by the v40 list endpoint; ignoring filters (list API version: %s).",
+                self._client._list_api_version.value,
+            )
+            filters = None
         params = build_query_params(query, filters)
-        response = await self._client._request(Endpoint.REPOSITORY_LIST.value, params)
+        response = await self._client._request(self._client.list_url(Endpoint.REPOSITORY_LIST.value), params)
         return _dispatch_return_type(response, ResourceType.REPOSITORY_LIST, return_type, count)
 
     async def get(self, repository_id: str, return_type: ReturnType = ReturnType.DATACLASS) -> Repository | Response | dict | str:
@@ -89,30 +98,56 @@ class AsyncRepositoryManager:
             RepositoryNotFoundError: If no repository with the given ID is found.
         """
         is_valid_return_type(return_type)
-        response = await self._client._request(Endpoint.REPOSITORY.value.format(repository_id=repository_id))
+        response = await self._client._request(
+            self._client.detail_url(Endpoint.REPOSITORY.value.format(repository_id=repository_id))
+        )
         if response.status_code == httpx.codes.NOT_FOUND:
             raise RepositoryNotFoundError(f"No repository with id '{repository_id}' available at {response.url}.")
         return _dispatch_return_type(response, ResourceType.REPOSITORY, return_type)
 
 
 class AsyncClient(BaseClient):
-    """An async client that interacts with the re3data v40 API.
+    """An async client that interacts with the re3data API.
 
-    Examples:
-        >>> async with AsyncClient() as client:
-        ...     await client.repositories.get("r3d100012417")
-        Repository(identifiers=Identifiers(re3data='r3d100012417', doi='https://doi.org/10.17616/R34F41'), ...)
+    The API version defaults to ``v40``; see :class:`re3data.Client` for the
+    per-endpoint version overrides.
     """
 
     _client: httpx.AsyncClient
 
-    def __init__(self, transport: httpx.AsyncBaseTransport | None = None) -> None:
+    def __init__(
+        self,
+        api_version: APIVersion | str = APIVersion.V40,
+        *,
+        list_api_version: APIVersion | str | None = None,
+        detail_api_version: APIVersion | str | None = None,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         """Initialize the client.
 
         Args:
+            api_version: Default API version for both endpoints (``v40``, ``v1``
+                or ``beta``). Defaults to ``v40``.
+            list_api_version: Optional override of the API version for the
+                repositories list endpoint.
+            detail_api_version: Optional override of the API version for the
+                repository detail endpoint.
             transport: An optional custom httpx transport, e.g. for testing.
+
+        Raises:
+            ValueError: If any version is not a known :class:`APIVersion`.
         """
-        super().__init__(httpx.AsyncClient, transport)
+        default_version = resolve_api_version(api_version, APIVersion.V40)
+        list_version = resolve_api_version(list_api_version, default_version)
+        detail_version = resolve_api_version(detail_api_version, default_version)
+        super().__init__(
+            httpx.AsyncClient,
+            list_base_url=base_url_for(list_version),
+            detail_base_url=base_url_for(detail_version),
+            transport=transport,
+        )
+        self._list_api_version = list_version
+        self._detail_api_version = detail_version
         self._client.event_hooks["response"] = [log_response]
         self._repository_manager: AsyncRepositoryManager = AsyncRepositoryManager(self)
 
@@ -126,13 +161,13 @@ class AsyncClient(BaseClient):
         """Close the underlying HTTP client and release connections."""
         await self._client.aclose()
 
-    async def _request(self, path: str, query_params: list[tuple[str, str]] | None = None) -> Response:
-        """Send an HTTP GET request to the specified API endpoint.
+    async def _request(self, url: str, query_params: list[tuple[str, str]] | None = None) -> Response:
+        """Send an HTTP GET request to the specified absolute API URL.
 
         Raises:
             httpx.HTTPStatusError: If the server returned an error status code >= 500.
         """
-        http_response = await self._client.get(path, params=query_params)
+        http_response = await self._client.get(url, params=query_params)
         if http_response.is_server_error:
             http_response.raise_for_status()
         return _build_response(http_response)

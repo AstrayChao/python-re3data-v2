@@ -1,11 +1,12 @@
-"""Clients for the re3data v40 API."""
+"""Clients for the re3data API."""
 
 from re3data._client._async import AsyncClient, AsyncRepositoryManager
 from re3data._client._sync import Client, RepositoryManager
-from re3data._client.base import BASE_URL, ReturnType
+from re3data._client.base import API_ROOT_URL, APIVersion, ReturnType
 
 __all__ = (
-    "BASE_URL",
+    "API_ROOT_URL",
+    "APIVersion",
     "AsyncClient",
     "AsyncRepositoryManager",
     "Client",

@@ -15,6 +15,7 @@ Robustness rules:
 
 from __future__ import annotations
 
+import re
 import xml.etree.ElementTree as ET
 from datetime import date
 
@@ -391,8 +392,18 @@ def _parse_repository_summary(element: ET.Element) -> RepositorySummary:
     )
 
 
+def _root_namespace(root: ET.Element) -> str:
+    """The namespace URI of the root element, or "" if the document has none."""
+    tag = root.tag
+    return tag[1:].split("}", 1)[0] if tag.startswith("{") else ""
+
+
 def parse_re3data(text: str) -> Re3Data:
     """Parse a repository detail XML document into a :class:`Re3Data` object.
+
+    Schema 4.0 documents (v40 endpoint) are parsed natively; schema 2-2
+    documents (v1/beta endpoints) are parsed and converted into the schema 4.0
+    model so callers always receive one shape.
 
     Args:
         text: The XML document text as returned by ``GET /api/v40/repository/{id}``.
@@ -407,7 +418,10 @@ def parse_re3data(text: str) -> Re3Data:
         root = ET.fromstring(text)
     except ET.ParseError as error:
         raise Re3dataError(f"Unable to parse re3data XML response: {error}") from error
-    repositories = [_parse_repository(child) for child in _children(root, "repository")]
+    if _root_namespace(root) == "http://www.re3data.org/schema/2-2":
+        repositories = [_parse_repository_22(child) for child in _children(root, "repository")]
+    else:
+        repositories = [_parse_repository(child) for child in _children(root, "repository")]
     return Re3Data(repository=repositories)
 
 
@@ -421,6 +435,184 @@ def parse_repository(text: str) -> Repository:
     if not document.repository:
         raise Re3dataError("re3data XML response contains no repository element")
     return document.repository[0]
+
+
+def _split_subject_22(text: str | None) -> tuple[str | None, str | None]:
+    """Split a schema 2-2 subject label like "11204 Business Administration".
+
+    Returns:
+        A (subjectId, subjectName) tuple; the id is None when the label does
+        not start with a numeric classification code.
+    """
+    if text is None:
+        return None, None
+    match = re.match(r"^(\d+)\s+(.+)$", text, flags=re.DOTALL)
+    if match:
+        return match.group(1), match.group(2).strip()
+    return None, text
+
+
+def _parse_subject_22(element: ET.Element) -> Subject:
+    subject_id, subject_name = _split_subject_22(_text(element))
+    return Subject(
+        subjectId=subject_id,
+        subjectName=subject_name,
+        subjectScheme=_attr(element, "subjectScheme"),
+    )
+
+
+def _parse_institution_22(element: ET.Element) -> Institution:
+    name_element = _child(element, "institutionName")
+    return Institution(
+        institutionName=_parse_institution_name(name_element) if name_element is not None else None,
+        institutionAdditionalName=[
+            _parse_institution_additional_name(child) for child in _children(element, "institutionAdditionalName")
+        ],
+        institutionCountry=_text(_child(element, "institutionCountry")),
+        responsibilityType=_texts(element, "responsibilityType"),
+        institutionType=_text(_child(element, "institutionType")),
+        institutionUrl=_text(_child(element, "institutionURL")),
+        institutionIdentifier=[
+            # schema 2-2 carries plain strings like "ROR:02jx3x895"
+            InstitutionIdentifier(institutionIdentifierType=None, institutionIdentifierUrl=value)
+            for value in _texts(element, "institutionIdentifier")
+        ],
+    )
+
+
+def _parse_repository_22(element: ET.Element) -> Repository:
+    """Parse a schema 2-2 repository element (v1/beta endpoints) into the schema 4.0 model.
+
+    Structural conversions (see docs/schema-mapping.md):
+    - ``re3data.orgIdentifier`` -> ``identifiers.re3data`` (no DOI on 2-2 details)
+    - ``repositoryURL`` and other ``*URL`` elements -> lowercase ``*Url``
+    - ``subject`` free text -> split into ``subjectId`` + ``subjectName``
+    - ``contentType`` free text -> ``contentTypeName`` (no COAR id on 2-2)
+    - ``certificate`` strings -> ``certificateName`` structures
+    - ``api`` element text -> ``apiUrl``
+    - ``qualityManagement`` yes/no -> ``qualityManagementStatus``
+    - 2-2-only fields without a 4.0 counterpart (``size@updated``, ``endDate``
+      date, ``missionStatementUrl``... ) are kept when isomorphic or dropped.
+    """
+    quality_management = _text(_child(element, "qualityManagement"))
+    database_access_element = _child(element, "databaseAccess")
+    name_element = _child(element, "repositoryName")
+    return Repository(
+        identifiers=Identifiers(re3data=_text(_child(element, "re3data.orgIdentifier")), doi=None),
+        repositoryName=_parse_repository_name(name_element) if name_element is not None else None,
+        additionalName=[_parse_additional_name(child) for child in _children(element, "additionalName")],
+        repositoryUrl=_text(_child(element, "repositoryURL")),
+        repositoryIdentifier=[
+            RepositoryIdentifier(repositoryIdentifierType=None, repositoryIdentifierValue=value)
+            for value in _texts(element, "repositoryIdentifier")
+        ],
+        description=[_parse_description(child) for child in _children(element, "description")],
+        repositoryContact=[
+            RepositoryContact(repositoryContactInformation=value, repositoryContactType=None)
+            for value in _texts(element, "repositoryContact")
+        ],
+        type=_texts(element, "type"),
+        size=_text(_child(element, "size")),
+        startDate=_date_value(_text(_child(element, "startDate"))),
+        # schema 2-2 endDate is a date; the 4.0 model only models closed/offline flags
+        endDate=None,
+        repositoryLanguage=_texts(element, "repositoryLanguage"),
+        subject=[_parse_subject_22(child) for child in _children(element, "subject")],
+        missionStatementUrl=_text(_child(element, "missionStatementURL")),
+        contentType=[
+            ContentType(
+                contentTypeId=None,
+                contentTypeName=_text(child),
+                contentTypeScheme=_attr(child, "contentTypeScheme"),
+            )
+            for child in _children(element, "contentType")
+        ],
+        providerType=_texts(element, "providerType"),
+        keyword=_texts(element, "keyword"),
+        institution=[_parse_institution_22(child) for child in _children(element, "institution")],
+        policy=[
+            Policy(policyName=_text(_child(child, "policyName")), policyUrl=_text(_child(child, "policyURL")))
+            for child in _children(element, "policy")
+        ],
+        databaseAccess=(
+            DatabaseAccess(
+                databaseAccessType=_text(_child(database_access_element, "databaseAccessType")),
+                databaseAccessRestriction=_texts(database_access_element, "databaseAccessRestriction"),
+            )
+            if database_access_element is not None
+            else None
+        ),
+        databaseLicense=[
+            DatabaseLicense(
+                databaseLicenseName=_text(_child(child, "databaseLicenseName")),
+                databaseLicenseUrl=_text(_child(child, "databaseLicenseURL")),
+            )
+            for child in _children(element, "databaseLicense")
+        ],
+        dataAccess=[
+            DataAccess(
+                dataAccessType=_text(_child(child, "dataAccessType")),
+                dataAccessRestriction=_texts(child, "dataAccessRestriction"),
+            )
+            for child in _children(element, "dataAccess")
+        ],
+        dataLicense=[
+            DataLicense(
+                dataLicenseName=_text(_child(child, "dataLicenseName")),
+                dataLicenseUrl=_text(_child(child, "dataLicenseURL")),
+            )
+            for child in _children(element, "dataLicense")
+        ],
+        dataUpload=[
+            DataUpload(
+                dataUploadType=_text(_child(child, "dataUploadType")),
+                dataUploadRestriction=_texts(child, "dataUploadRestriction"),
+            )
+            for child in _children(element, "dataUpload")
+        ],
+        dataUploadLicense=[
+            DataUploadLicense(
+                dataUploadLicenseName=_text(_child(child, "dataUploadLicenseName")),
+                dataUploadLicenseUrl=_text(_child(child, "dataUploadLicenseURL")),
+            )
+            for child in _children(element, "dataUploadLicense")
+        ],
+        software=_texts(element, "software"),
+        versioning=_text(_child(element, "versioning")),
+        api=[
+            Api(apiType=_attr(child, "apiType"), apiUrl=_text(child), apiDocumentation=None)
+            for child in _children(element, "api")
+        ],
+        pidSystem=_texts(element, "pidSystem"),
+        citationReference=[],
+        metrics=[],
+        citationGuidelineUrl=_text(_child(element, "citationGuidelineURL")),
+        aidSystem=_texts(element, "aidSystem"),
+        enhancedPublication=_text(_child(element, "enhancedPublication")),
+        qualityManagement=(
+            QualityManagement(qualityManagementStatus=quality_management, qualityManagementMeasure=[])
+            if quality_management is not None
+            else None
+        ),
+        certificate=[
+            Certificate(certificateName=value, certificateUrl=None)
+            for value in _texts(element, "certificate")
+        ],
+        metadataStandard=[
+            MetadataStandard(
+                metadataStandardName=_text(_child(child, "metadataStandardName")),
+                metadataStandardUrl=_text(_child(child, "metadataStandardURL")),
+            )
+            for child in _children(element, "metadataStandard")
+        ],
+        syndication=[
+            Syndication(syndicationType=_attr(child, "syndicationType"), syndicationUrl=_text(child))
+            for child in _children(element, "syndication")
+        ],
+        remarks=_text(_child(element, "remarks")),
+        entryDate=_date_value(_text(_child(element, "entryDate"))),
+        lastUpdate=_date_value(_text(_child(element, "lastUpdate"))),
+    )
 
 
 def parse_repository_list(text: str) -> RepositoryList:

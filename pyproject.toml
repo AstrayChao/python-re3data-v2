@@ -14,7 +14,7 @@ requires = [
 
 [project]
 name = "python-re3data-v2"
-version = "0.1.0"
+version = "0.2.0"
 description = "The Pythonic client for the re3data API (v40, schema 4.0)."
 readme = "README.md"
 keywords = [

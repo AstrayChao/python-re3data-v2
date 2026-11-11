@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+            <repository>
+            <id>r3d100000001</id>
+                        <doi>https://doi.org/10.17616/R31NJCHT</doi>
+                        <name>Odum Institute Archive Dataverse</name>
+            <link href="/api/v1/repository/r3d100000001" rel="self" />
+        </repository>       
+            <repository>
+            <id>r3d100000002</id>
+                        <doi>https://doi.org/10.17616/R31597</doi>
+                        <name>Access to Archival Databases</name>
+            <link href="/api/v1/repository/r3d100000002" rel="self" />
+        </repository>       
+            <repository>
+            <id>r3d100000004</id>
+                        <doi>https://doi.org/10.17616/R3WC79</doi>
+                        <name>Datenbank Gesprochenes Deutsch</name>
+            <link href="/api/v1/repository/r3d100000004" rel="self" />
+        </repository>       
+            </list>

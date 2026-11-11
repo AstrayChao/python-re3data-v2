@@ -84,6 +84,26 @@ async with AsyncClient() as async_client:
     repository = await async_client.repositories.get("r3d100012417")
 ```
 
+### Choosing the API version
+
+The API version defaults to `v40`. If an endpoint misbehaves upstream, switch it —
+per client or per endpoint:
+
+```python
+from re3data import APIVersion, Client
+
+client = Client(api_version="v40")            # both endpoints on v40 (default)
+client = Client(api_version="v1")             # both endpoints on v1 (schema 2-2, converted)
+client = Client(list_api_version="v1")        # discovery via v1, details stay on v40
+client = Client(detail_api_version="beta")    # details via beta, list stays on v40
+```
+
+Detail responses are dispatched by their XML namespace: schema 4.0 documents are
+parsed natively, schema 2-2 documents (v1/beta) are converted into the same
+4.0 model, so your consuming code never has to branch on the API version.
+Facet filters only exist on the v40 list endpoint and are ignored (with a
+warning) elsewhere.
+
 ### Return types
 
 ```python
@@ -137,9 +157,10 @@ migration notes live in [docs/research.md](docs/research.md).
 ## ⚠️ Known upstream issues
 
 - `GET /api/v40/repositories` **without** a `query`/filter currently fails with
-  HTTP 500 server-side (the deprecated beta endpoint behaves the same). Listing
-  everything therefore requires a query or filter for now; the client surfaces
-  the error transparently.
+  HTTP 500 server-side (the beta list endpoint behaves the same). The **v1**
+  list endpoint still returns the full index (and ignores query/filters).
+  Workaround: `Client(list_api_version="v1")` — discovery via v1, details stay
+  on v40.
 - The API only serves `application/xml` — there is no JSON representation.
 - Live data occasionally deviates from the XSD vocabularies (e.g.
   `"institutional membership"` vs. `"institutionalMembership"`). Vocabulary

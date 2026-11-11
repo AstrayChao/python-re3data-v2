@@ -7,12 +7,13 @@ try:
 except PackageNotFoundError:  # pragma: no cover - package not installed
     __version__ = "0.0.0"
 
-from re3data._client import AsyncClient, Client, ReturnType
+from re3data._client import APIVersion, AsyncClient, Client, ReturnType
 from re3data._exceptions import Re3dataError, RepositoryNotFoundError
 from re3data._resources import Link, Re3Data, Repository, RepositoryList, RepositorySummary
 from re3data._response import Response
 
 __all__ = (
+    "APIVersion",
     "AsyncClient",
     "Client",
     "Link",
